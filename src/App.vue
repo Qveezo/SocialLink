@@ -11,7 +11,6 @@
     </v-app-bar> -->
     
     <v-navigation-drawer
-        v-model="drawer"
         color="green"
         dark
         expand-on-hover
@@ -21,13 +20,13 @@
         app
       >
         <v-list
-          dense
           nav
-          class="py-0"
+          shaped
+          dense
         >
           <v-list-item two-line>
             <v-list-item-avatar>
-              <img src="https://randomuser.me/api/portraits/men/1.jpg">
+              <img :src="'https://randomuser.me/api/portraits/men/' + myId + '.jpg'">
             </v-list-item-avatar>
 
             <v-list-item-content class="text-left">
@@ -36,19 +35,35 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-divider></v-divider>
+          <v-divider class="my-3"></v-divider>
 
-          <v-list-item
-            link
-          >
+          <v-list-item link :to="'/'">
             <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
+              <v-icon>mdi-home-outline</v-icon>
             </v-list-item-icon>
-
             <v-list-item-content>
-              <v-list-item-title>Мой профиль</v-list-item-title>
+              <v-list-item-title class="text-left">Главная</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+
+          <v-list-item link :to="'/users/' + myId">
+            <v-list-item-icon>
+              <v-icon>mdi-account-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title class="text-left">Мой профиль</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item link :to="'/users'" exact>
+            <v-list-item-icon>
+              <v-icon>mdi-account-multiple-plus-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title class="text-left">Найти друзей</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
         </v-list>
       </v-navigation-drawer>
     
@@ -66,7 +81,7 @@ export default {
   name: 'App',
   data(){
     return {
-      myId: 1
+      myId: 6
     }
   }
 }
