@@ -1,91 +1,117 @@
 <template>
   <v-app id="app">
-    <!-- <v-app-bar color="green" hide-on-scroll dark app>
-        <img src="/img/logo.png" height="45px" class="mr-3">
-        <v-toolbar-title>SocialApp</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <div id="nav">
-          <router-link to="/">Home</router-link> |
-          <router-link to="/profile">Профиль</router-link>
-        </div>
-    </v-app-bar> -->
-    
     <v-navigation-drawer
-        color="green"
-        dark
-        expand-on-hover
-        hide-overlay
-        permanent
-        right
-        app
-      >
-        <v-list
-          nav
-          shaped
-          dense
-        >
-          <v-list-item two-line>
-            <v-list-item-avatar>
-              <img :src="'https://randomuser.me/api/portraits/men/' + myId + '.jpg'">
-            </v-list-item-avatar>
+    color="blue darken-1"
+    dark
+    expand-on-hover
+    hide-overlay
+    permanent
+    left
+    app
+    >
+    <v-list
+    nav 
+    shaped
+    dense
+    >
+    <v-list-item link :to="Profile">
+      <v-list-item-icon>
+        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Men" style="width: 35px; height: 35px;">
+      </v-list-item-icon>
+      <v-list-item-content>
+      <v-list-item-title class="font-weight-black">
+        SocialLink
+      </v-list-item-title>
+      <v-list-item-subtitle>
+        Valeriy Anikin
+      </v-list-item-subtitle>
+    </v-list-item-content>
+    </v-list-item>
 
-            <v-list-item-content class="text-left">
-              <v-list-item-title class="font-weight-black">SocialLink</v-list-item-title>
-              <v-list-item-subtitle>Leanne Graham</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
 
-          <v-divider class="my-3"></v-divider>
+    <v-divider class="my-3"></v-divider>
 
-          <v-list-item link :to="'/'">
-            <v-list-item-icon>
-              <v-icon>mdi-home-outline</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="text-left">Главная</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
 
-          <v-list-item link :to="'/users/' + myId">
-            <v-list-item-icon>
-              <v-icon>mdi-account-outline</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="text-left">Мой профиль</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
 
-          <v-list-item link :to="'/users'" exact>
-            <v-list-item-icon>
-              <v-icon>mdi-account-multiple-plus-outline</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="text-left">Найти друзей</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+    <v-list-item link :to="pyt">
+      <v-list-item-icon>
+        <v-icon>mdi-home-outline</v-icon>
+      </v-list-item-icon>
+      <v-list-item-content>
+      <v-list-item-title class="text-left">
+        Главная
+      </v-list-item-title>
+    </v-list-item-content>
+    </v-list-item>
 
-        </v-list>
-      </v-navigation-drawer>
-    
-    <v-content class="px-12 py-3" >
+
+    <v-list-item link :to="profile">
+      <v-list-item-icon>
+        <v-icon> mdi-face-man</v-icon>
+      </v-list-item-icon>
+      <v-list-item-content>
+      <v-list-item-title class="text-left">
+        Мой Профиль
+      </v-list-item-title>
+    </v-list-item-content>
+    </v-list-item>
+
+
+    <v-list-item link :to="profile">
+      <v-list-item-icon>
+        <v-icon>mdi-account-plus-outline</v-icon>
+      </v-list-item-icon>
+      <v-list-item-content>
+      <v-list-item-title class="text-left">
+        Найти Друзей
+      </v-list-item-title>
+    </v-list-item-content>
+    </v-list-item>
+
+
+
+
+    </v-list>
+
+      
+    </v-navigation-drawer>
+    <v-content class="px-12 py-3">
       <v-container fluid>
         <router-view/>
       </v-container>
     </v-content>
-
   </v-app>
 </template>
+
+
+
 
 <script>
 export default {
   name: 'App',
   data(){
     return {
-      myId: 6
+      // Это данные для отображения в боковой панели
+      // мы будем их фиксировать в момент аутентификации
+      myName: '',
+      myId: '',
+      myPhoto: ''
+    }
+  },
+  methods: {
+    // Метод для обработки события аутентификации (пользователь вошел в аккаунт)
+    // Событие возникает на router-view и генерируется в src/views/Login.vue при помощи $emit
+    setUser(data){
+      this.myId = data.id;
+      this.myName = data.name;
+      this.myPhoto = data.photo;
     }
   }
 }
 </script>
+
+
+
 
 <style lang="scss">
 #app {
@@ -109,5 +135,10 @@ export default {
       text-decoration: underline;
     }
   }
+}
+
+a {
+  text-decoration:none;
+  color: #FFFFFF !important;
 }
 </style>
